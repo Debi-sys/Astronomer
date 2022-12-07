@@ -17,7 +17,7 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 
     // Set a timer to send the APOD every 5 minutes
-    setInterval(sendApod, 1 * 60 * 1000);
+    setInterval(sendApod, 1440 * 60 * 1000);
 });
 
 async function sendApod() {
