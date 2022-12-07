@@ -5,6 +5,12 @@
 Astronomer is a Discord bot utilizing various features of various Astronomy-related API's, including NASA OPEN API.
 Astronomer is based on discord.js 13.12.
 
+# Usage
+## Official bot
+You can invite the official bot soonly, no work required!
+
+## Self-hosting
+The bot is Free and open source, you can download this repository and host the bot on your own machine. All you need is a discord bot token (See: discord developer portal) and a NASA API Key (see: https://api.nasa.gov/)
 
 # Commands
 ## !APOD
