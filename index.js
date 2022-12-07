@@ -128,11 +128,13 @@ client.on('message', async (message) => {
                 `https://api.nasa.gov/planetary/apod?api_key=${api.NASA_API_KEY}&date=${date}`
             );
 
-            const imageURL = response.data.url;
-            const explanation = response.data.explanation;
+            // Create a Discord message embed with the APOD data
+            const embed2 = new Discord.MessageEmbed()
+                .setTitle(response.data.title)
+                .setImage(response.data.url)
+                .setDescription(response.data.explanation);
 
-            message.channel.send(imageURL);
-            message.channel.send(explanation);
+            channel.send({ embeds: [embed2] });
         } catch (error) {
             console.error(error);
             message.channel.send('Sorry, there was an error fetching the APOD.');
