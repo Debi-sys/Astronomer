@@ -134,7 +134,7 @@ client.on('message', async (message) => {
                 .setImage(response.data.url)
                 .setDescription(response.data.explanation);
 
-            channel.send({ embeds: [embed2] });
+            message.channel.send({ embeds: [embed2] });
         } catch (error) {
             console.error(error);
             message.channel.send('Sorry, there was an error fetching the APOD.');
