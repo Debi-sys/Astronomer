@@ -4,15 +4,43 @@ const fs = require('fs');
 const https = require('https');
 const config = require('./config.json');
 const api = require('./api.json');
+const apodUrl = 'https://api.nasa.gov/planetary/apod';
+const DISCORD_CHANNEL_ID = '1049688666370490438';
 
 // Create a new Discord client
 const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] })
 
 
 // When the bot is ready, log a message to the console
+
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+
+    // Set a timer to send the APOD every 5 minutes
+    setInterval(sendApod, 1 * 60 * 1000);
 });
+
+async function sendApod() {
+    try {
+        const response = await axios.get(
+            `https://api.nasa.gov/planetary/apod?api_key=${api.NASA_API_KEY}`
+        );
+
+        // Create a Discord message embed with the APOD data
+        const embed = new Discord.MessageEmbed()
+            .setTitle(response.data.title)
+            .setImage(response.data.url)
+            .setDescription(response.data.explanation);
+
+        // Send the message to the desired Discord channel
+        const channel = client.channels.cache.get(DISCORD_CHANNEL_ID);
+        channel.send({ embeds: [embed] });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
 
 // When the bot receives a message, check for commands
 client.on('message', msg => {
@@ -155,6 +183,11 @@ client.on('message', async (message) => {
         }
     }
 });
+
+
+
+
+
 
 
 // Log the bot in using the token
